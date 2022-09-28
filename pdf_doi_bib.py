@@ -86,8 +86,18 @@ def process_pdf(paper):
         except KeyError:
             month = '00'  # No month, assign 00.
         title = entry['title']
-        filename = slugify.slugify(f"{entryname} {title}")
+        if entryname.startswith('https'):
+            # arXiv article names are the full links, replace with AuthorYear format
+            prelast_names = bib.entries[entryname].persons['author'][0].prelast_names
+            last_names = bib.entries[entryname].persons['author'][0].last_names
+            name = ' '.join(prelast_names + last_names)
+            filename = slugify.slugify(f"{name} {year} {title}")
+        else:
+            filename = slugify.slugify(f"{entryname} {title}")
         filename = filename[:80]
+        print(f"generating new filename: {filename}")
+
+
         with open(f"outbox/{filename}.bib",'w') as f:
             f.write(bib.to_string('bibtex'))
         shutil.move(paper, f"outbox/{filename}.pdf")
