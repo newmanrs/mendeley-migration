@@ -72,6 +72,7 @@ def process_pdf(paper):
         print(bib)
     else:
         print("unable to process {paper}")
+        shutil.move(paper, 'failbox')
         return
 
     #bib = pybtex.database.parse_string(bib, 'bibtex')
@@ -97,6 +98,6 @@ if __name__ == "__main__":
 
     papers = glob.glob("inbox/*.pdf")
 
-    for paper in papers:
+    for paper in sorted(papers):  # glob.glob not deterministic ordering
         print(f"Processing pdf {paper}")
         process_pdf(paper)
