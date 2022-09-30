@@ -11,7 +11,7 @@ truncate -s 0 $outputfile  # create or clear file
 collist=$(head -n 1 -q outbox/*.bib | uniq -d | cut -d'{' -f 2  | sed 's/,//g')
 nocollist=$(head -n 1 -q outbox/*.bib | uniq -u | cut -d'{' -f 2 | sed 's/,//g')
 
-echo "bibtek citekey collisions list:" $collist
+echo "bibtex citekey collisions list:" $collist
 
 # Edit collisions out by adding md5sum of the bib file to the key.
 # This prevents papers getting added in the future from colliding
