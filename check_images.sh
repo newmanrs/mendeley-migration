@@ -1,6 +1,7 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
-#Create ugly images for all PDFs with bibtex superimposed to do dirty checks for correctness
+# Create ugly images for all PDFs with bibtex superimposed to
+# make an ugly set of images that we can inspect for correctness
 
 for file in outbox/*.pdf; do
     echo making check image for $file
